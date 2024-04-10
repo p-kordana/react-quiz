@@ -1,17 +1,17 @@
-function Finish({ pAt, pOf, highscore, dispatch }) {
-  const scorePct = (pAt / pOf) * 100;
+import { useQuiz } from "../contexts/QuizContext";
+
+function Finish() {
+  const { points, maxPoints, highscore, restartQuiz } = useQuiz();
+  const scorePct = (points / maxPoints) * 100;
 
   return (
     <>
       <p className="result">
-        You scored {pAt} out of {pOf} ({Math.ceil(scorePct)}%)
+        You scored {points} out of {maxPoints} ({Math.ceil(scorePct)}%)
       </p>
       <p className="highscore">Highest Score: {highscore} points</p>
 
-      <button
-        className="btn btn-ui start"
-        onClick={() => dispatch({ type: "restart" })}
-      >
+      <button className="btn btn-ui start" onClick={restartQuiz}>
         Try again?
       </button>
     </>

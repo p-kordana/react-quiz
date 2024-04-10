@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useQuiz } from "../contexts/QuizContext";
 
-function Timer({ initialSeconds, dispatch }) {
+function Timer() {
+  const { initialSeconds, endQuiz } = useQuiz();
   const [secondsRemaining, setSecondsRemaing] = useState(initialSeconds);
 
   const mins = Math.floor(secondsRemaining / 60);
@@ -8,13 +10,15 @@ function Timer({ initialSeconds, dispatch }) {
   useEffect(
     function () {
       const id = setInterval(function () {
-        if (secondsRemaining <= 0) return dispatch({ type: "finishQuiz" });
+        if (secondsRemaining <= 0) {
+          endQuiz();
+        }
         setSecondsRemaing((c) => c - 1);
       }, 1000);
 
       return () => clearInterval(id);
     },
-    [secondsRemaining, dispatch]
+    [secondsRemaining, endQuiz]
   );
 
   return (

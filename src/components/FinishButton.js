@@ -1,9 +1,9 @@
-function FinishButton({ dispatch }) {
+import { useQuiz } from "../contexts/QuizContext";
+
+function FinishButton() {
+  const { endQuiz } = useQuiz();
   return (
-    <button
-      className="btn btn-ui"
-      onClick={() => dispatch({ type: "finishQuiz" })}
-    >
+    <button className="btn btn-ui" onClick={endQuiz}>
       Finish
     </button>
   );
